@@ -12,12 +12,13 @@
   --surface: #1E1E24; --surface2: #26262E;
   --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.13);
   --text: #F0EFE8; --text2: #9A9890; --text3: #5A5855;
-  --blue: #4DA3FF; --blue-dim: #1A2D4A; --blue-glow: rgba(77,163,255,0.15);
-  --green: #5ECC7A; --green-dim: #142A1C; --green-glow: rgba(94,204,122,0.15);
+  --blue: #4DA3FF; --blue-dim: #1A2D4A;
+  --green: #5ECC7A; --green-dim: #142A1C;
   --purple: #A78BFA; --purple-dim: #1E1535;
   --amber: #F5B944; --amber-dim: #2A2010;
   --red: #F87171; --red-dim: #2A1010;
   --teal: #2DD4BF; --teal-dim: #0D2A26;
+  --orange: #FB923C; --orange-dim: #2A1A08;
   --font: 'Syne', system-ui, sans-serif;
   --mono: 'Inconsolata', monospace;
 }
@@ -43,14 +44,46 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 
 .container { max-width: 780px; margin: 0 auto; padding: 2rem 1.25rem 5rem; position: relative; z-index: 1; }
 
-header { padding: 3rem 0 1.5rem; }
-.header-label { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text3); margin-bottom: 1rem; animation: fadeUp 0.6s ease both; }
-.live-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); margin-right: 6px; animation: pulse 2s ease infinite; vertical-align: middle; }
-h1 { font-size: clamp(30px, 5vw, 50px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 0.5rem; animation: fadeUp 0.6s 0.1s ease both; }
+/* ALERT BANNER */
+.alert-banner {
+  background: linear-gradient(135deg, rgba(251,146,60,0.12), rgba(251,146,60,0.05));
+  border: 1px solid rgba(251,146,60,0.35);
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.5s ease both;
+}
+.alert-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.alert-emoji { font-size: 18px; }
+.alert-title { font-size: 14px; font-weight: 700; color: var(--orange); }
+.alert-body { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.alert-body strong { color: var(--text); font-weight: 600; }
+
+/* START NOW BOX */
+.start-now {
+  background: linear-gradient(135deg, rgba(45,212,191,0.1), rgba(45,212,191,0.04));
+  border: 1px solid rgba(45,212,191,0.3);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.5s 0.08s ease both;
+}
+.start-now-label { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.live-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 2s ease infinite; }
+.schedule-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 7px; }
+.schedule-row:last-child { margin-bottom: 0; }
+.sched-time { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--teal); min-width: 80px; flex-shrink: 0; }
+.sched-task { font-size: 13px; color: var(--text); line-height: 1.5; }
+.sched-task.muted { color: var(--text2); font-style: italic; }
+.sched-divider { height: 1px; background: rgba(45,212,191,0.12); margin: 8px 0; }
+
+header { padding: 2rem 0 1.5rem; }
+.header-label { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text3); margin-bottom: 1rem; animation: fadeUp 0.6s 0.1s ease both; }
+h1 { font-size: clamp(30px, 5vw, 50px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 0.5rem; animation: fadeUp 0.6s 0.15s ease both; }
 .h1-accent { color: var(--blue); }
 .header-desc { font-size: 14px; color: var(--text2); margin-bottom: 1.5rem; animation: fadeUp 0.6s 0.2s ease both; }
 
-.countdown-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1.5rem; animation: fadeUp 0.6s 0.3s ease both; }
+.countdown-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1.5rem; animation: fadeUp 0.6s 0.25s ease both; }
 .countdown-chip { display: flex; align-items: center; gap: 12px; padding: 12px 18px; border-radius: 14px; border: 1px solid; font-size: 13px; font-weight: 600; transition: transform 0.2s ease, box-shadow 0.2s ease; }
 .countdown-chip:hover { transform: translateY(-2px); }
 .countdown-chip.hug { background: var(--blue-dim); border-color: rgba(77,163,255,0.3); color: var(--blue); }
@@ -60,9 +93,8 @@ h1 { font-size: clamp(30px, 5vw, 50px); font-weight: 800; line-height: 1.05; let
 .chip-days { font-size: 26px; font-weight: 800; line-height: 1; font-family: var(--mono); }
 .chip-label { display: flex; flex-direction: column; }
 .chip-label span:first-child { font-size: 11px; opacity: 0.65; font-weight: 400; }
-.chip-label span:last-child { font-size: 13px; }
 
-.progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.25rem 1.5rem; margin-bottom: 1rem; animation: fadeUp 0.6s 0.4s ease both; }
+.progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.25rem 1.5rem; margin-bottom: 1rem; animation: fadeUp 0.6s 0.3s ease both; }
 .section-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); margin-bottom: 1rem; }
 .progress-row { margin-bottom: 12px; }
 .progress-row:last-child { margin-bottom: 0; }
@@ -74,16 +106,16 @@ h1 { font-size: clamp(30px, 5vw, 50px); font-weight: 800; line-height: 1.05; let
 .fill-blue { background: linear-gradient(90deg, #2D7FD4, var(--blue)); }
 .fill-green { background: linear-gradient(90deg, #3A9952, var(--green)); }
 
-.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1.5rem; animation: fadeUp 0.6s 0.45s ease both; }
+.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1.5rem; animation: fadeUp 0.6s 0.35s ease both; }
 .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; transition: border-color 0.2s, transform 0.2s; }
 .stat-card:hover { border-color: var(--border2); transform: translateY(-2px); }
 .stat-num { font-size: 26px; font-weight: 800; font-family: var(--mono); line-height: 1; margin-bottom: 4px; }
 .stat-desc { font-size: 10px; color: var(--text3); font-family: var(--mono); letter-spacing: 0.06em; text-transform: uppercase; }
 
-.streak-banner { display: flex; align-items: center; gap: 10px; background: linear-gradient(135deg, rgba(245,185,68,0.08), rgba(245,185,68,0.03)); border: 1px solid rgba(245,185,68,0.2); border-radius: 12px; padding: 10px 16px; margin-bottom: 1.5rem; font-size: 13px; color: var(--amber); font-weight: 600; animation: fadeUp 0.6s 0.5s ease both; }
+.streak-banner { display: flex; align-items: center; gap: 10px; background: linear-gradient(135deg, rgba(245,185,68,0.08), rgba(245,185,68,0.03)); border: 1px solid rgba(245,185,68,0.2); border-radius: 12px; padding: 10px 16px; margin-bottom: 1.5rem; font-size: 13px; color: var(--amber); font-weight: 600; animation: fadeUp 0.6s 0.4s ease both; }
 .streak-num { font-family: var(--mono); font-size: 22px; font-weight: 800; }
 
-.filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; animation: fadeUp 0.6s 0.55s ease both; }
+.filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; animation: fadeUp 0.6s 0.45s ease both; }
 .tab-btn { font-family: var(--font); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 100px; border: 1px solid var(--border2); background: transparent; color: var(--text2); cursor: pointer; transition: all 0.2s ease; }
 .tab-btn:hover { background: var(--surface2); color: var(--text); }
 .tab-btn.active { background: var(--surface2); color: var(--text); border-color: rgba(255,255,255,0.2); }
@@ -99,11 +131,29 @@ h1 { font-size: clamp(30px, 5vw, 50px); font-weight: 800; line-height: 1.05; let
 
 .week-label { font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; margin: 1.25rem 0 0.5rem; }
 
+/* SKIPPED CARD */
+.day-card-skipped {
+  background: rgba(248,113,113,0.04);
+  border: 1px dashed rgba(248,113,113,0.2);
+  border-radius: 14px;
+  margin-bottom: 6px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0.5;
+  animation: slideIn 0.4s ease both;
+}
+.skipped-date { font-size: 13px; font-weight: 700; color: var(--red); font-family: var(--mono); min-width: 80px; }
+.skipped-text { font-size: 12px; color: var(--text3); font-family: var(--mono); }
+.skipped-badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 100px; background: var(--red-dim); color: var(--red); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap; margin-left: auto; }
+
 .day-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 6px; overflow: hidden; transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s; animation: slideIn 0.4s ease both; }
 .day-card:hover { border-color: var(--border2); transform: translateX(3px); }
 .day-card.done { opacity: 0.38; }
 .day-card.done .day-name { text-decoration: line-through; }
-.day-card.today-card { border-color: rgba(45,212,191,0.35); box-shadow: 0 0 22px rgba(45,212,191,0.06); }
+.day-card.today-card { border-color: rgba(45,212,191,0.4); box-shadow: 0 0 24px rgba(45,212,191,0.08); }
+.day-card.catchup-card { border-color: rgba(251,146,60,0.35); box-shadow: 0 0 18px rgba(251,146,60,0.06); }
 .day-card.exam-hug-card { border-color: rgba(248,113,113,0.4); box-shadow: 0 0 22px rgba(248,113,113,0.08); }
 .day-card.exam-calc-card { border-color: rgba(94,204,122,0.4); box-shadow: 0 0 22px rgba(94,204,122,0.08); }
 .day-card.hidden { display: none; }
@@ -112,9 +162,13 @@ h1 { font-size: clamp(30px, 5vw, 50px); font-weight: 800; line-height: 1.05; let
 .day-label { padding: 12px 14px; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; background: var(--bg3); }
 .day-name { font-size: 13px; font-weight: 700; color: var(--text); }
 .day-date { font-size: 10px; color: var(--text3); margin-top: 2px; font-family: var(--mono); }
+
 .today-card .day-label { background: var(--teal-dim); }
 .today-card .day-name { color: var(--teal); }
-.today-card .day-date { color: rgba(45,212,191,0.5); }
+.today-card .day-date { color: rgba(45,212,191,0.55); }
+.catchup-card .day-label { background: var(--orange-dim); }
+.catchup-card .day-name { color: var(--orange); }
+.catchup-card .day-date { color: rgba(251,146,60,0.55); }
 .weekend-card .day-label { background: rgba(42,32,16,0.8); }
 .exam-hug-card .day-label { background: var(--red-dim); }
 .exam-hug-card .day-name { color: var(--red); }
@@ -129,9 +183,9 @@ h1 { font-size: clamp(30px, 5vw, 50px); font-weight: 800; line-height: 1.05; let
 .tag { font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; letter-spacing: 0.03em; text-transform: uppercase; }
 .tag-hug { background: var(--blue-dim); color: var(--blue); }
 .tag-calc { background: var(--green-dim); color: var(--green); }
-.tag-both { background: var(--purple-dim); color: var(--purple); }
 .tag-rest { background: rgba(28,28,32,0.8); color: var(--text3); }
 .tag-buf { background: var(--amber-dim); color: var(--amber); }
+.tag-catchup { background: var(--orange-dim); color: var(--orange); }
 .tag-exam { background: var(--red-dim); color: var(--red); }
 .tag-exam-c { background: var(--green-dim); color: var(--green); }
 .task-text { font-size: 13px; color: var(--text); line-height: 1.5; }
@@ -160,17 +214,41 @@ h1 { font-size: clamp(30px, 5vw, 50px); font-weight: 800; line-height: 1.05; let
 <div class="toast" id="toast"><span class="toast-emoji" id="toast-emoji">🔥</span><span id="toast-msg">Day checked off!</span></div>
 
 <div class="container">
+
+  <!-- ALERT -->
+  <div class="alert-banner">
+    <div class="alert-top">
+      <span class="alert-emoji">⚠️</span>
+      <span class="alert-title">Saturday was a skip — that's okay. Plan updated.</span>
+    </div>
+    <div class="alert-body">
+      Saturday's sessions are moved to <strong>today (Sunday)</strong> and <strong>Wednesday's double-up</strong>. You haven't lost anything that can't be fixed right now. It's 2pm — you have time.
+    </div>
+  </div>
+
+  <!-- START NOW -->
+  <div class="start-now">
+    <div class="start-now-label"><span class="live-dot"></span>Start right now — today's schedule</div>
+    <div class="schedule-row"><span class="sched-time">2:00–2:15</span><span class="sched-task muted">Close everything. Get water. Open your study guide. That's the only task.</span></div>
+    <div class="sched-divider"></div>
+    <div class="schedule-row"><span class="sched-time">2:15–3:30</span><span class="sched-task">Unit 1: Thinking Geographically — read + write key terms in your own words</span></div>
+    <div class="schedule-row"><span class="sched-time">3:30–3:45</span><span class="sched-task muted">Break. Snack. Stretch. Step outside for 2 min.</span></div>
+    <div class="schedule-row"><span class="sched-time">3:45–5:00</span><span class="sched-task">Unit 2: Population & Migration — read + fill in study guide</span></div>
+    <div class="sched-divider"></div>
+    <div class="schedule-row"><span class="sched-time">5:00+</span><span class="sched-task muted">Done for today. That's a real win. Don't keep going — rest matters.</span></div>
+  </div>
+
   <header>
-    <div class="header-label"><span class="live-dot"></span>Study tracker &nbsp;·&nbsp; Apr 18 – May 12, 2026</div>
+    <div class="header-label"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--teal);margin-right:6px;animation:pulse 2s ease infinite;vertical-align:middle;"></span>Study tracker &nbsp;·&nbsp; Apr 19 – May 12, 2026</div>
     <h1>AP Exam<br><span class="h1-accent">Study Plan.</span></h1>
-    <div class="header-desc">Click the ✓ on any day to mark it done. Track your streak. Crush exam season.</div>
+    <div class="header-desc">Click ✓ to check off days. Progress saves automatically in your browser.</div>
     <div class="countdown-bar">
       <div class="countdown-chip hug">
-        <div class="chip-days" id="hug-days">17</div>
+        <div class="chip-days" id="hug-days">16</div>
         <div class="chip-label"><span>days until</span><span>AP Human Geo</span></div>
       </div>
       <div class="countdown-chip calc">
-        <div class="chip-days" id="calc-days">24</div>
+        <div class="chip-days" id="calc-days">23</div>
         <div class="chip-label"><span>days until</span><span>AP Precalculus</span></div>
       </div>
     </div>
@@ -195,7 +273,7 @@ h1 { font-size: clamp(30px, 5vw, 50px); font-weight: 800; line-height: 1.05; let
 
   <div class="stats-row">
     <div class="stat-card"><div class="stat-num" id="stat-done" style="color:var(--teal);">0</div><div class="stat-desc">Days done</div></div>
-    <div class="stat-card"><div class="stat-num" id="stat-left" style="color:var(--blue);">25</div><div class="stat-desc">Days left</div></div>
+    <div class="stat-card"><div class="stat-num" id="stat-left" style="color:var(--blue);">24</div><div class="stat-desc">Days left</div></div>
     <div class="stat-card"><div class="stat-num" id="stat-pct" style="color:var(--purple);">0%</div><div class="stat-desc">Complete</div></div>
   </div>
 
@@ -211,60 +289,59 @@ h1 { font-size: clamp(30px, 5vw, 50px); font-weight: 800; line-height: 1.05; let
     <div class="phase-line"></div>
     <div class="phase-label">Phase 1</div>
     <div class="phase-pill hug">APHUG Focus</div>
-    <div class="phase-label">Apr 18 – May 1</div>
+    <div class="phase-label">Apr 19 – May 1</div>
     <div class="phase-line"></div>
   </div>
-  <div class="week-label">Week 1 · Apr 18–20</div>
 
-  <div class="day-card today-card" data-id="apr18" data-subject="hug">
-    <div class="day-inner">
-      <div class="day-label"><div class="day-name">Sat Apr 18</div><div class="day-date">Today · 3–4 hrs</div></div>
-      <div class="day-tasks">
-        <div class="task"><span class="tag tag-hug">APHUG</span><div><div class="task-text">Unit 1: Thinking Geographically — maps, scale, spatial concepts</div><div class="task-sub">Read guide + write key terms in own words · ~1.5 hrs</div></div></div>
-        <div class="task"><span class="tag tag-hug">APHUG</span><div><div class="task-text">Unit 2: Population & Migration — demographic transition, push/pull factors</div><div class="task-sub">Read + fill in study guide · ~1.5 hrs</div></div></div>
-      </div>
-      <div class="day-check"><button class="check-btn" onclick="toggleDay('apr18',event)">✓</button></div>
-    </div>
+  <!-- SKIPPED -->
+  <div class="week-label">Sat Apr 18 — skipped</div>
+  <div class="day-card-skipped">
+    <span class="skipped-date">Sat Apr 18</span>
+    <span class="skipped-text">Units 1 & 2 — moved to Sunday Apr 19</span>
+    <span class="skipped-badge">skipped</span>
   </div>
 
-  <div class="day-card weekend-card" data-id="apr19" data-subject="both">
+  <div class="week-label">Today · Sun Apr 19</div>
+
+  <div class="day-card today-card" data-id="apr19" data-subject="hug">
     <div class="day-inner">
-      <div class="day-label"><div class="day-name">Sun Apr 19</div><div class="day-date">Weekend · 3–4 hrs</div></div>
+      <div class="day-label"><div class="day-name">Sun Apr 19</div><div class="day-date">Today · start now</div></div>
       <div class="day-tasks">
-        <div class="task"><span class="tag tag-hug">APHUG</span><div><div class="task-text">Unit 3: Cultural Patterns — language, religion, diffusion, folk vs popular culture</div><div class="task-sub">Read + fill in study guide · ~1.5 hrs</div></div></div>
-        <div class="task"><span class="tag tag-calc">PRECALC</span><div><div class="task-text">Unit 1: Polynomial & Rational Functions — light intro read, no problems yet</div><div class="task-sub">~1 hr</div></div></div>
+        <div class="task"><span class="tag tag-hug">APHUG</span><div><div class="task-text">Unit 1: Thinking Geographically — maps, scale, spatial concepts. Read + write key terms.</div><div class="task-sub">2:15–3:30pm · ~1.25 hrs</div></div></div>
+        <div class="task"><span class="tag tag-hug">APHUG</span><div><div class="task-text">Unit 2: Population & Migration — demographic transition, push/pull factors. Read + fill guide.</div><div class="task-sub">3:45–5:00pm · ~1.25 hrs</div></div></div>
       </div>
       <div class="day-check"><button class="check-btn" onclick="toggleDay('apr19',event)">✓</button></div>
     </div>
   </div>
 
+  <div class="week-label">Week 1 · Apr 20–24</div>
+
   <div class="day-card" data-id="apr20" data-subject="hug">
     <div class="day-inner">
       <div class="day-label"><div class="day-name">Mon Apr 20</div><div class="day-date">Weekday · 2 hrs</div></div>
       <div class="day-tasks">
-        <div class="task"><span class="tag tag-hug">APHUG</span><div><div class="task-text">Unit 4: Political Organization — state types, borders, centrifugal/centripetal forces, supranationalism</div><div class="task-sub">Read + fill guide · ~1.5 hrs after hw</div></div></div>
+        <div class="task"><span class="tag tag-hug">APHUG</span><div><div class="task-text">Unit 3: Cultural Patterns — language, religion, diffusion, folk vs popular culture</div><div class="task-sub">Read + fill in study guide · ~1.5 hrs after hw</div></div></div>
       </div>
       <div class="day-check"><button class="check-btn" onclick="toggleDay('apr20',event)">✓</button></div>
     </div>
   </div>
 
-  <div class="week-label">Week 1 cont. · Apr 21–25</div>
-
   <div class="day-card" data-id="apr21" data-subject="hug">
     <div class="day-inner">
       <div class="day-label"><div class="day-name">Tue Apr 21</div><div class="day-date">Weekday · 2 hrs</div></div>
       <div class="day-tasks">
-        <div class="task"><span class="tag tag-hug">APHUG</span><div><div class="task-text">Unit 5: Agriculture & Rural Land Use — Von Thünen, Green Revolution, land use models</div><div class="task-sub">Read + fill guide · ~1.5 hrs</div></div></div>
+        <div class="task"><span class="tag tag-hug">APHUG</span><div><div class="task-text">Unit 4: Political Organization — state types, borders, centrifugal/centripetal forces, supranationalism</div><div class="task-sub">Read + fill guide · ~1.5 hrs</div></div></div>
       </div>
       <div class="day-check"><button class="check-btn" onclick="toggleDay('apr21',event)">✓</button></div>
     </div>
   </div>
 
-  <div class="day-card" data-id="apr22" data-subject="hug">
+  <div class="day-card catchup-card" data-id="apr22" data-subject="hug">
     <div class="day-inner">
-      <div class="day-label"><div class="day-name">Wed Apr 22</div><div class="day-date">Weekday · 2 hrs</div></div>
+      <div class="day-label"><div class="day-name">Wed Apr 22</div><div class="day-date">Double-up 🔁</div></div>
       <div class="day-tasks">
-        <div class="task"><span class="tag tag-hug">APHUG</span><div><div class="task-text">Unit 6: Cities & Urban Land Use — Burgess, Hoyt, multiple nuclei models, gentrification, urban sprawl</div><div class="task-sub">Read + fill guide · ~1.5 hrs</div></div></div>
+        <div class="task"><span class="tag tag-catchup">CATCH-UP</span><div><div class="task-text">Unit 5: Agriculture & Rural Land Use — Von Thünen, Green Revolution, land use models</div><div class="task-sub">~1 hr · first session</div></div></div>
+        <div class="task"><span class="tag tag-hug">APHUG</span><div><div class="task-text">Unit 6: Cities & Urban Land Use — Burgess, Hoyt, multiple nuclei, gentrification, urban sprawl</div><div class="task-sub">~1 hr · second session. Take a 15 min break between.</div></div></div>
       </div>
       <div class="day-check"><button class="check-btn" onclick="toggleDay('apr22',event)">✓</button></div>
     </div>
@@ -290,25 +367,25 @@ h1 { font-size: clamp(30px, 5vw, 50px); font-weight: 800; line-height: 1.05; let
     </div>
   </div>
 
+  <div class="week-label">Week 2 · Apr 25–27 (Weekend + Mon)</div>
+
   <div class="day-card weekend-card" data-id="apr25" data-subject="both">
     <div class="day-inner">
       <div class="day-label"><div class="day-name">Sat Apr 25</div><div class="day-date">Weekend · 3–4 hrs</div></div>
       <div class="day-tasks">
         <div class="task"><span class="tag tag-hug">APHUG</span><div><div class="task-text">Full study guide review pass #1 — Units 1–4. Cover answers and recite out loud.</div><div class="task-sub">~2 hrs active recall</div></div></div>
-        <div class="task"><span class="tag tag-calc">PRECALC</span><div><div class="task-text">Unit 2: Exponential & Logarithmic Functions — read study material</div><div class="task-sub">~1 hr reading, no pressure on problems yet</div></div></div>
+        <div class="task"><span class="tag tag-calc">PRECALC</span><div><div class="task-text">Unit 1: Polynomial & Rational Functions — read study material (light intro)</div><div class="task-sub">~1 hr reading, no problems yet</div></div></div>
       </div>
       <div class="day-check"><button class="check-btn" onclick="toggleDay('apr25',event)">✓</button></div>
     </div>
   </div>
-
-  <div class="week-label">Week 2 · Apr 26 – May 2</div>
 
   <div class="day-card weekend-card" data-id="apr26" data-subject="both">
     <div class="day-inner">
       <div class="day-label"><div class="day-name">Sun Apr 26</div><div class="day-date">Weekend · 3–4 hrs</div></div>
       <div class="day-tasks">
         <div class="task"><span class="tag tag-hug">APHUG</span><div><div class="task-text">Full study guide review pass #1 — Units 5–7. Cover + recite method.</div><div class="task-sub">~1.5 hrs</div></div></div>
-        <div class="task"><span class="tag tag-calc">PRECALC</span><div><div class="task-text">Unit 3: Trigonometric Functions — unit circle, identities, read study material</div><div class="task-sub">~1.5 hrs reading</div></div></div>
+        <div class="task"><span class="tag tag-calc">PRECALC</span><div><div class="task-text">Unit 2: Exponential & Logarithmic Functions — read study material</div><div class="task-sub">~1.5 hrs reading</div></div></div>
       </div>
       <div class="day-check"><button class="check-btn" onclick="toggleDay('apr26',event)">✓</button></div>
     </div>
@@ -339,6 +416,7 @@ h1 { font-size: clamp(30px, 5vw, 50px); font-weight: 800; line-height: 1.05; let
       <div class="day-label"><div class="day-name">Wed Apr 29</div><div class="day-date">Weekday · 2 hrs</div></div>
       <div class="day-tasks">
         <div class="task"><span class="tag tag-hug">APHUG</span><div><div class="task-text">Targeted review — go back to the units you missed most on Tuesday</div><div class="task-sub">Re-read + rewrite key concepts · ~1.5 hrs</div></div></div>
+        <div class="task"><span class="tag tag-calc">PRECALC</span><div><div class="task-text">Unit 3: Trigonometric Functions — unit circle, identities, read study material</div><div class="task-sub">~30 min light reading if energy allows</div></div></div>
       </div>
       <div class="day-check"><button class="check-btn" onclick="toggleDay('apr29',event)">✓</button></div>
     </div>
@@ -479,22 +557,24 @@ h1 { font-size: clamp(30px, 5vw, 50px); font-weight: 800; line-height: 1.05; let
 
   <div class="note-box">
     <div class="note-label">Tip</div>
-    <div class="note-text">Your progress is saved automatically in this browser. The night before each exam: 30–45 min max, then stop. Sleep beats cramming every time. For APHUG FRQs, use released past prompts from AP Classroom or College Board's website.</div>
+    <div class="note-text">Progress saves automatically in this browser. The only thing that broke your plan was not starting — so start right now, close this tab except for your study guide, and do 2:15–3:30. That's all you need to do today to get back on track.</div>
   </div>
+
 </div>
 
 <script>
-const TOTAL = 25;
-const HUG_IDS = ['apr18','apr19','apr20','apr21','apr22','apr23','apr24','apr25','apr26','apr27','apr28','apr29','apr30','may1','may23','may4','may5'];
-const CALC_IDS = ['apr19','apr25','apr26','may23','may6','may7','may8','may9','may10','may11','may12'];
+const TOTAL = 24;
+const HUG_IDS = ['apr19','apr20','apr21','apr22','apr23','apr24','apr25','apr26','apr27','apr28','apr29','apr30','may1','may23','may4','may5'];
+const CALC_IDS = ['apr25','apr26','apr29','may23','may6','may7','may8','may9','may10','may11','may12'];
 const MSGS = [
   ['🔥','Day down. Keep going!'],['⚡','That\'s the energy!'],['💪','One step closer!'],
   ['🎯','Locked in.'],['🧠','Brain gains activated.'],['✨','You\'re doing great!'],
-  ['🚀','Building momentum!'],['📚','Streak growing!'],['😤','Let\'s go!'],['🌟','Crushing it!']
+  ['🚀','Building momentum!'],['📚','Streak growing!'],['😤','Let\'s go!'],['🌟','Crushing it!'],
+  ['✅','Back on track!'],['💥','That\'s how it\'s done!']
 ];
 
 let done = [];
-try { done = JSON.parse(localStorage.getItem('ap_study_done') || '[]'); } catch(e) { done = []; }
+try { done = JSON.parse(localStorage.getItem('ap_study_done2') || '[]'); } catch(e) { done = []; }
 
 function showToast(emoji, msg) {
   const t = document.getElementById('toast');
@@ -517,7 +597,7 @@ function toggleDay(id, e) {
     const m = MSGS[Math.floor(Math.random() * MSGS.length)];
     showToast(m[0], m[1]);
   }
-  try { localStorage.setItem('ap_study_done', JSON.stringify(done)); } catch(e) {}
+  try { localStorage.setItem('ap_study_done2', JSON.stringify(done)); } catch(e) {}
   updateStats();
 }
 
@@ -540,7 +620,7 @@ function updateStats() {
 }
 
 function filterDays(type, btn) {
-  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   document.querySelectorAll('.day-card').forEach(card => {
     const s = card.dataset.subject;
@@ -560,13 +640,11 @@ function updateCountdown() {
   document.getElementById('calc-days').textContent = Math.max(0, Math.ceil((calc - now) / msDay));
 }
 
-// restore
 done.forEach(id => {
   const card = document.querySelector('[data-id="' + id + '"]');
   if (card) card.classList.add('done');
 });
 
-// stagger animations
 document.querySelectorAll('.day-card').forEach((c, i) => { c.style.animationDelay = (i * 0.025) + 's'; });
 
 updateStats();
